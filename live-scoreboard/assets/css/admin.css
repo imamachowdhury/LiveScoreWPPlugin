@@ -1,0 +1,47 @@
+/* Live Scoreboard admin */
+.lsb-admin-wrap h1 {
+    margin: 10px 0 20px;
+    color: #111827;
+    font-size: 1.7rem;
+    font-weight: 800;
+}
+.lsb-admin-wrap .wp-list-table {
+    overflow: hidden;
+    border: 1px solid #dfe5ef;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
+}
+.lsb-admin-wrap .wp-list-table thead th {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.lsb-admin-wrap .wp-list-table td,
+.lsb-admin-wrap .wp-list-table th {
+    padding: 12px 14px;
+}
+.lsb-admin-wrap .wp-list-table tbody tr:hover {
+    background: #fbfdff;
+}
+.lsb-admin-wrap .button {
+    border-radius: 7px;
+    font-weight: 700;
+}
+.lsb-admin-delete {
+    border-color: #fecaca !important;
+    color: #b91c1c !important;
+    background: #fff7f7 !important;
+}
+.lsb-status {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 99px;
+    font-size: .72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.lsb-status--live     { background: #fee2e2; color: #b91c1c; }
+.lsb-status--upcoming { background: #fef3c7; color: #92400e; }
+.lsb-status--finished { background: #e5e7eb; color: #4b5563; }

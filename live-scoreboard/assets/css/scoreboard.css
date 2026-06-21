@@ -1,0 +1,594 @@
+/* ── Live Scoreboard — Public CSS ─────────────────────────────────────── */
+
+:root {
+    --lsb-primary:   #1a1a2e;
+    --lsb-accent:    #e94560;
+    --lsb-green:     #16c79a;
+    --lsb-yellow:    #f9d342;
+    --lsb-white:     #ffffff;
+    --lsb-gray:      #8b8b9e;
+    --lsb-card-bg:   #16213e;
+    --lsb-card-dark: #0f3460;
+    --lsb-radius:    12px;
+}
+
+/* ── Page wrapper ─────────────────────────────────────────────────────── */
+/* lsb-page-wrap sits inside whatever theme the site uses and gives
+   the board its own dark background so white text is always readable */
+.lsb-page-wrap {
+    background: var(--lsb-primary);
+    padding: 40px 20px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    /* Override any theme max-width constraints */
+    width: 100%;
+    box-sizing: border-box;
+}
+.lsb-page-inner { max-width: 860px; margin: 0 auto; }
+
+/* Legacy alias kept for backwards compat */
+.lsb-page { background: var(--lsb-primary); min-height: 100vh; padding: 40px 20px; font-family: 'Segoe UI', Arial, sans-serif; }
+
+/* ── Board container ─────────────────────────────────────────────────── */
+.lsb-board { background: #16213e !important; border-radius: var(--lsb-radius); overflow: hidden; margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,.4); color: #ffffff; }
+.lsb-loading { color: var(--lsb-gray); text-align: center; padding: 40px; }
+
+/* ── Inner wrapper ───────────────────────────────────────────────────── */
+.lsb-inner { padding: 0; }
+
+/* ── Header ──────────────────────────────────────────────────────────── */
+.lsb-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #0f3460 !important; }
+.lsb-title { color: #ffffff !important; font-weight: 700; font-size: 1rem; letter-spacing: .5px; }
+.lsb-badge { font-size: .75rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; }
+.lsb-badge--live     { background: var(--lsb-accent); color: var(--lsb-white); animation: lsb-pulse 1.6s infinite; }
+.lsb-badge--upcoming { background: var(--lsb-yellow); color: #333; }
+.lsb-badge--finished { background: var(--lsb-gray);   color: var(--lsb-white); }
+
+@keyframes lsb-pulse {
+    0%,100% { opacity: 1; }
+    50%      { opacity: .5; }
+}
+
+/* ── Football board ──────────────────────────────────────────────────── */
+.lsb-football { padding: 32px 20px 24px; }
+.lsb-teams { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.lsb-team { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.lsb-team-name { color: #8b8b9e !important; font-size: .85rem; font-weight: 600; text-transform: uppercase; text-align: center; }
+.lsb-goal { color: #ffffff !important; font-size: 4rem; font-weight: 900; line-height: 1; }
+.lsb-separator { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.lsb-minute { color: #16c79a !important; font-size: 1.5rem; font-weight: 800; }
+.lsb-half   { color: #8b8b9e !important; font-size: .75rem; text-transform: uppercase; }
+.lsb-vs     { color: #8b8b9e !important; font-size: 1.2rem; font-weight: 700; }
+
+/* ── Cricket board ────────────────────────────────────────────────────── */
+.lsb-cricket { padding: 24px 20px; }
+.lsb-cricket-innings { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.lsb-cricket-team { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.lsb-runs  { color: #ffffff !important; font-size: 2.4rem; font-weight: 900; }
+.lsb-overs { color: #8b8b9e !important; font-size: .8rem; }
+.lsb-cricket-divider { color: #8b8b9e !important; font-size: 1rem; font-weight: 700; padding: 0 10px; }
+.lsb-target  { text-align: center; margin-top: 10px; color: #f9d342 !important; font-weight: 700; }
+.lsb-result  { text-align: center; margin-top: 8px;  color: #16c79a !important; font-weight: 700; font-size: 1rem; }
+.lsb-batting { text-align: center; margin-top: 6px;  color: #8b8b9e !important; font-size: .8rem; }
+
+/* ── Events bar ──────────────────────────────────────────────────────── */
+.lsb-events { margin-top: 10px; padding: 8px 14px; background: rgba(255,255,255,.05); border-radius: 6px; color: var(--lsb-gray); font-size: .8rem; }
+
+/* ── List layout ─────────────────────────────────────────────────────── */
+.lsb-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+.lsb-list-item .lsb-board { margin-bottom: 0; }
+
+/* ── Update panel ─────────────────────────────────────────────────────── */
+.lsb-update-panel {
+    background: #ffffff;
+    border: 1px solid #e5e7ef;
+    border-radius: 10px;
+    padding: 24px;
+    margin-top: 24px;
+    box-shadow: 0 14px 38px rgba(15, 52, 96, .12);
+}
+.lsb-update-panel h2 { margin: 0 0 18px; color: #111827; font-size: 1.35rem; }
+.lsb-update-panel label { display: inline-block; margin: 6px 8px 6px 0; font-weight: 700; color: #374151; }
+.lsb-field {
+    margin-right: 4px;
+    border: 1px solid #d8deea;
+    border-radius: 7px;
+    padding: 8px 10px;
+    background: #fff;
+    color: #111827;
+    min-height: 40px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.lsb-field:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .14);
+    outline: none;
+}
+.lsb-stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    vertical-align: middle;
+}
+.lsb-stepper input[type="number"] {
+    margin-right: 0;
+}
+.lsb-step-btn.button {
+    min-width: 40px;
+    height: 40px;
+    padding: 0 !important;
+    border-radius: 6px !important;
+    font-size: 18px !important;
+    line-height: 1 !important;
+    font-weight: 800 !important;
+    border-color: #cfd8e8 !important;
+    background: #f8fafc !important;
+    color: #1f2937 !important;
+}
+.lsb-step-btn.button:hover {
+    background: #eaf1ff !important;
+    border-color: #9db6f2 !important;
+}
+.lsb-run-quick {
+    display: flex;
+    gap: 6px;
+    margin: 8px 0 10px;
+}
+.lsb-run-btn.button {
+    min-width: 48px;
+    height: 40px;
+    padding: 0 10px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: #ecfdf5 !important;
+    color: #047857 !important;
+    font-weight: 900 !important;
+}
+.lsb-run-btn.button:hover {
+    background: #d1fae5 !important;
+    color: #065f46 !important;
+}
+.lsb-score-inputs { display: flex; align-items: flex-end; gap: 12px; margin: 12px 0; }
+.lsb-score-inputs > div { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.lsb-score-input { width: 70px !important; font-size: 2rem; text-align: center; }
+.lsb-vs { font-size: 2rem; font-weight: 900; padding: 0 8px; }
+.lsb-minute-row, .lsb-cricket-row, .lsb-cricket-scores { margin: 10px 0; }
+.lsb-cricket-scores { display: flex; gap: 24px; flex-wrap: wrap; }
+.lsb-cricket-scores fieldset { border: 1px solid #e5e7ef; border-radius: 8px; padding: 12px 14px; background: #fbfcff; }
+.lsb-status-row { margin-bottom: 14px; }
+.lsb-update-msg { min-height: 1.2em; font-weight: 600; margin-top: 8px; }
+
+/* ── Dashboard ────────────────────────────────────────────────────────── */
+.lsb-dashboard {
+    max-width: 1100px;
+    color: #172033;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+.lsb-dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+.lsb-dashboard-header h2 {
+    margin: 0;
+    color: #111827;
+    font-size: 1.7rem;
+    letter-spacing: 0;
+}
+.lsb-dashboard-count {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: #eef4ff;
+    color: #1d4ed8;
+    font-size: .82rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.lsb-create-form {
+    background: #ffffff;
+    border: 1px solid #e3e8f2;
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 26px;
+    box-shadow: 0 14px 40px rgba(15, 23, 42, .08);
+}
+.lsb-create-form h3 { margin: 0 0 18px; color: #111827; font-size: 1.15rem; }
+.lsb-create-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 16px;
+    margin-bottom: 16px;
+}
+.lsb-create-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin: 0;
+    color: #374151;
+    font-size: .84rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.lsb-create-form input,
+.lsb-create-form select {
+    width: 100%;
+    margin: 0;
+    min-height: 40px;
+    box-sizing: border-box;
+}
+.lsb-create-form .button-primary,
+.lsb-update-panel .button-primary {
+    min-height: 38px;
+    border-radius: 7px;
+    font-weight: 800;
+}
+.lsb-create-msg { min-height: 1.2em; font-weight: 700; margin: 10px 0 0; }
+.lsb-dashboard-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e3e8f2;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, .07);
+}
+.lsb-dashboard-table th,
+.lsb-dashboard-table td {
+    padding: 14px 15px;
+    border-bottom: 1px solid #edf1f7;
+    text-align: left;
+    vertical-align: middle;
+}
+.lsb-dashboard-table tr:last-child td { border-bottom: 0; }
+.lsb-dashboard-table th {
+    background: #f8fafc;
+    color: #64748b;
+    font-size: .74rem;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.lsb-dashboard-table tbody tr:hover { background: #fbfdff; }
+.lsb-sport-pill {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #334155;
+    font-size: .75rem;
+    font-weight: 800;
+}
+.lsb-row-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+.lsb-row-actions .button {
+    border-radius: 7px;
+    font-weight: 700;
+}
+.lsb-row-actions .lsb-delete-btn {
+    border-color: #fecaca;
+    color: #b91c1c;
+    background: #fff7f7;
+}
+.lsb-empty-state {
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 26px;
+    background: #f8fafc;
+    color: #64748b;
+    text-align: center;
+}
+.lsb-empty-state strong { display: block; color: #111827; font-size: 1.05rem; margin-bottom: 4px; }
+.lsb-empty-state p { margin: 0; }
+.lsb-status { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: .75rem; font-weight: 700; text-transform: uppercase; }
+.lsb-status--live     { background: #ffebeb; color: #c00; }
+.lsb-status--upcoming { background: #fff8dc; color: #7a6000; }
+.lsb-status--finished { background: #e8e8e8; color: #555; }
+
+/* ── Responsive ───────────────────────────────────────────────────────── */
+@media (max-width: 500px) {
+    .lsb-goal  { font-size: 2.5rem; }
+    .lsb-runs  { font-size: 1.6rem; }
+    .lsb-list  { grid-template-columns: 1fr; }
+    .lsb-cricket-scores { flex-direction: column; }
+    .lsb-dashboard-header { align-items: flex-start; flex-direction: column; }
+    .lsb-create-grid { grid-template-columns: 1fr; }
+    .lsb-dashboard-table { display: block; overflow-x: auto; }
+    .lsb-row-actions { min-width: 220px; }
+}
+
+@media (max-width: 720px) {
+    .lsb-page-wrap,
+    .lsb-page {
+        padding: 18px 10px;
+    }
+    .lsb-page-inner {
+        max-width: 100%;
+        padding: 0 !important;
+    }
+    .lsb-board {
+        border-radius: 10px;
+        margin-bottom: 16px;
+    }
+    .lsb-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 14px;
+    }
+    .lsb-title {
+        font-size: .95rem;
+        line-height: 1.35;
+    }
+    .lsb-football,
+    .lsb-cricket {
+        padding: 20px 12px;
+    }
+    .lsb-teams,
+    .lsb-cricket-innings {
+        gap: 8px;
+    }
+    .lsb-team-name {
+        font-size: .72rem;
+        line-height: 1.25;
+    }
+    .lsb-goal {
+        font-size: 2.8rem;
+    }
+    .lsb-runs {
+        font-size: 1.7rem;
+    }
+    .lsb-update-panel {
+        border-radius: 10px;
+        padding: 16px;
+        margin-top: 16px;
+        box-shadow: 0 8px 24px rgba(15, 52, 96, .10);
+    }
+    .lsb-update-panel h2 {
+        font-size: 1.2rem;
+        margin-bottom: 14px;
+    }
+    .lsb-update-panel label {
+        display: block;
+        margin: 12px 0 6px;
+    }
+    .lsb-field,
+    .lsb-create-form input,
+    .lsb-create-form select {
+        width: 100% !important;
+        min-height: 46px;
+        font-size: 16px;
+    }
+    .lsb-status-row,
+    .lsb-minute-row,
+    .lsb-cricket-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+    .lsb-score-inputs {
+        align-items: stretch;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .lsb-score-inputs > div {
+        align-items: stretch;
+        background: #fbfcff;
+        border: 1px solid #e5e7ef;
+        border-radius: 10px;
+        padding: 12px;
+    }
+    .lsb-score-inputs .lsb-vs {
+        display: none;
+    }
+    .lsb-stepper {
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr) 48px;
+        gap: 8px;
+        width: 100%;
+    }
+    .lsb-step-btn.button {
+        height: 48px;
+        min-width: 48px;
+        font-size: 22px !important;
+    }
+    .lsb-score-input {
+        width: 100% !important;
+        font-size: 2.2rem;
+    }
+    .lsb-run-quick {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin: 10px 0 14px;
+    }
+    .lsb-run-btn.button {
+        height: 46px;
+        width: 100%;
+        font-size: 1rem !important;
+    }
+    .lsb-cricket-scores {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .lsb-cricket-scores fieldset {
+        padding: 14px;
+    }
+    .lsb-update-panel .button-primary,
+    #lsb-create-btn,
+    .lsb-end-match-btn {
+        width: 100%;
+        min-height: 48px;
+        margin-top: 10px;
+        font-size: 1rem;
+    }
+    .lsb-dashboard {
+        max-width: 100%;
+    }
+    .lsb-dashboard-header {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .lsb-dashboard-count {
+        justify-content: center;
+        min-height: 40px;
+    }
+    .lsb-create-form {
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 18px;
+    }
+    .lsb-create-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    .lsb-dashboard-table,
+    .lsb-dashboard-table thead,
+    .lsb-dashboard-table tbody,
+    .lsb-dashboard-table tr,
+    .lsb-dashboard-table th,
+    .lsb-dashboard-table td {
+        display: block;
+    }
+    .lsb-dashboard-table {
+        border: 0;
+        box-shadow: none;
+        background: transparent;
+    }
+    .lsb-dashboard-table thead {
+        display: none;
+    }
+    .lsb-dashboard-table tr {
+        background: #fff;
+        border: 1px solid #e3e8f2;
+        border-radius: 10px;
+        box-shadow: 0 8px 22px rgba(15, 23, 42, .07);
+        margin-bottom: 12px;
+        overflow: hidden;
+    }
+    .lsb-dashboard-table td {
+        border-bottom: 1px solid #edf1f7;
+        padding: 11px 14px;
+    }
+    .lsb-dashboard-table td:last-child {
+        border-bottom: 0;
+    }
+    .lsb-row-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        min-width: 0;
+        width: 100%;
+    }
+    .lsb-row-actions .button {
+        justify-content: center;
+        min-height: 44px;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+/* ── End Match button ─────────────────────────────────────────────────── */
+.lsb-end-match-row { margin-top: 16px; }
+.lsb-end-match-row hr { margin-bottom: 12px; border: none; border-top: 1px solid #e5e5e5; }
+.lsb-end-match-btn {
+    background: #fff0f0 !important;
+    border-color: #c00 !important;
+    color: #c00 !important;
+    font-weight: 700 !important;
+}
+.lsb-end-match-btn:hover { background: #ffe0e0 !important; }
+.lsb-end-msg { margin-left: 10px; font-weight: 600; font-size: .85rem; }
+.lsb-finished-notice { color: #555; font-weight: 600; margin: 0; }
+
+/* ── Homepage live widget ─────────────────────────────────────────────── */
+.lsb-live-widget { font-family: 'Segoe UI', Arial, sans-serif; }
+
+.lsb-widget-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+}
+.lsb-widget-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #e94560; animation: lsb-pulse 1.4s infinite;
+    flex-shrink: 0;
+}
+.lsb-widget-title {
+    font-size: 1rem; font-weight: 800; letter-spacing: .5px;
+    text-transform: uppercase; color: #e94560;
+}
+
+.lsb-widget-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+}
+.lsb-no-live {
+    grid-column: 1/-1;
+    color: #888; font-size: .9rem; padding: 20px 0;
+}
+.lsb-widget-loading { color: #aaa; font-size: .9rem; padding: 16px 0; }
+
+/* ── Live widget card (lsb-wc) ────────────────────────────────────────── */
+.lsb-wc {
+    display: block;
+    background: var(--lsb-card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 4px 18px rgba(0,0,0,.3);
+    transition: transform .15s, box-shadow .15s;
+}
+.lsb-wc:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,.4);
+}
+
+.lsb-wc-top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 14px;
+    background: var(--lsb-card-dark);
+    border-bottom: 2px solid #e94560;
+}
+.lsb-wc-title { color: rgba(255,255,255,.55); font-size: .75rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+
+.lsb-wc-badge { font-size: .65rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; }
+.lsb-wc-badge--live     { background: #e94560; color: #fff; animation: lsb-pulse 1.4s infinite; }
+.lsb-wc-badge--upcoming { background: var(--lsb-yellow); color: #333; }
+.lsb-wc-badge--finished { background: #555; color: #ddd; }
+
+/* Football mini card */
+.lsb-wc-ft {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 14px 16px;
+    gap: 6px;
+}
+.lsb-wc-team  { color: rgba(255,255,255,.7); font-size: .8rem; font-weight: 700; text-transform: uppercase; flex: 1; }
+.lsb-wc-ft .lsb-wc-team:last-child { text-align: right; }
+.lsb-wc-goals { color: #fff; font-size: 2rem; font-weight: 900; }
+.lsb-wc-sep   { color: var(--lsb-green); font-size: .85rem; font-weight: 800; min-width: 36px; text-align: center; }
+
+/* Cricket mini card */
+.lsb-wc-ck {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 14px 16px; gap: 6px;
+}
+.lsb-wc-runs { color: #fff; font-size: 1.4rem; font-weight: 900; }
+.lsb-wc-vs   { color: rgba(255,255,255,.35); font-size: .75rem; font-weight: 700; }
+.lsb-wc-ck .lsb-wc-team:last-child { text-align: right; }
+
+@media (max-width: 500px) {
+    .lsb-widget-cards { grid-template-columns: 1fr; }
+    .lsb-wc-goals { font-size: 1.5rem; }
+    .lsb-wc-runs  { font-size: 1.1rem; }
+}
