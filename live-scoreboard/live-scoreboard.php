@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Live Scoreboard
  * Plugin URI:  https://imamahmed.net
- * Description: Football & cricket live scoreboard. Users create matches and update scores; viewers watch via shortcode or direct URL.
- * Version:     1.1.0
+ * Description: Football & cricket live scoreboard with Match Manager membership access.
+ * Version:     1.2.3
  * Author:      Imam Ahmed Chowdhury
  * Author URI:  https://imamahmed.net
  * Text Domain: live-scoreboard
@@ -12,13 +12,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'LSB_VERSION',  '1.1.0' );
+define( 'LSB_VERSION',  '1.2.3' );
 define( 'LSB_FILE',     __FILE__ );
 define( 'LSB_DIR',      plugin_dir_path( __FILE__ ) );
 define( 'LSB_URL',      plugin_dir_url( __FILE__ ) );
 
 require_once LSB_DIR . 'includes/class-lsb-activator.php';
 require_once LSB_DIR . 'includes/class-lsb-db.php';
+require_once LSB_DIR . 'includes/class-lsb-membership.php';
 require_once LSB_DIR . 'includes/class-lsb-match.php';
 require_once LSB_DIR . 'includes/class-lsb-ajax.php';
 require_once LSB_DIR . 'includes/class-lsb-rewrite.php';
@@ -33,9 +34,11 @@ add_action( 'plugins_loaded', 'lsb_init' );
 function lsb_init() {
     if ( get_option( 'lsb_version' ) !== LSB_VERSION ) {
         LSB_DB::create_tables();
+        LSB_Membership::add_role_and_caps();
         update_option( 'lsb_version', LSB_VERSION );
     }
 
+    LSB_Membership::init();
     new LSB_Ajax();
     new LSB_Rewrite();
     new LSB_Shortcode();

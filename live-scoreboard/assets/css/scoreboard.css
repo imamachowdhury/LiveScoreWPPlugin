@@ -288,6 +288,62 @@
 }
 .lsb-empty-state strong { display: block; color: #111827; font-size: 1.05rem; margin-bottom: 4px; }
 .lsb-empty-state p { margin: 0; }
+.lsb-membership-alert,
+.lsb-subscription-card {
+    border: 1px solid #e3e8f2;
+    border-radius: 10px;
+    padding: 22px;
+    background: #ffffff;
+    color: #172033;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
+}
+.lsb-membership-alert strong,
+.lsb-subscription-card h2 {
+    display: block;
+    margin: 0 0 8px;
+    color: #111827;
+}
+.lsb-membership-alert p,
+.lsb-subscription-card p {
+    color: #64748b;
+}
+.lsb-subscription-price {
+    display: inline-block;
+    margin: 0 0 10px;
+    color: #047857;
+}
+.lsb-membership-status {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+.lsb-package-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+}
+.lsb-package-card {
+    border: 1px solid #e3e8f2;
+    border-radius: 10px;
+    padding: 14px;
+    background: #fbfdff;
+}
+.lsb-package-card strong {
+    display: block;
+    color: #111827;
+    margin-bottom: 6px;
+}
+.lsb-package-card p {
+    margin: 8px 0;
+}
+.lsb-package-card small {
+    color: #1d4ed8;
+    font-weight: 800;
+}
 .lsb-status { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: .75rem; font-weight: 700; text-transform: uppercase; }
 .lsb-status--live     { background: #ffebeb; color: #c00; }
 .lsb-status--upcoming { background: #fff8dc; color: #7a6000; }

@@ -29,6 +29,9 @@
     border-radius: 7px;
     font-weight: 700;
 }
+.lsb-admin-actions {
+    margin: 18px 0 0;
+}
 .lsb-admin-delete {
     border-color: #fecaca !important;
     color: #b91c1c !important;
@@ -45,3 +48,175 @@
 .lsb-status--live     { background: #fee2e2; color: #b91c1c; }
 .lsb-status--upcoming { background: #fef3c7; color: #92400e; }
 .lsb-status--finished { background: #e5e7eb; color: #4b5563; }
+
+.lsb-admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin: 18px 0 26px;
+}
+.lsb-admin-card {
+    padding: 18px;
+    border: 1px solid #dfe5ef;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
+}
+.lsb-admin-card--wide {
+    grid-column: span 2;
+    margin-bottom: 20px;
+}
+.lsb-admin-card h2 {
+    margin: 0;
+    color: #111827;
+}
+.lsb-card-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+.lsb-card-heading p {
+    margin: 6px 0 0;
+    color: #64748b;
+}
+.lsb-admin-card label {
+    display: block;
+    margin: 0 0 14px;
+}
+.lsb-admin-card label span {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+.lsb-admin-card input[type="number"] {
+    width: 120px;
+}
+.lsb-admin-card input[type="text"],
+.lsb-admin-card input[type="date"],
+.lsb-admin-card select,
+.lsb-admin-card textarea {
+    width: 100%;
+    max-width: 100%;
+}
+.lsb-package-list {
+    display: grid;
+    gap: 14px;
+}
+.lsb-package-row {
+    display: grid;
+    grid-template-columns: minmax(180px, 1.3fr) 90px minmax(150px, 1fr) minmax(220px, 1.5fr) 110px;
+    gap: 12px;
+    align-items: start;
+    padding: 14px;
+    border: 1px solid #e5eaf3;
+    border-radius: 8px;
+    background: #fbfdff;
+}
+.lsb-package-row-actions {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+}
+.lsb-checkbox-row {
+    display: flex !important;
+    gap: 8px;
+    align-items: center;
+}
+.lsb-checkbox-row span {
+    margin: 0 !important;
+    font-weight: 500 !important;
+}
+.lsb-member-table {
+    table-layout: auto;
+}
+.lsb-member-table td:first-child strong,
+.lsb-member-table td:first-child span,
+.lsb-member-table td:first-child small,
+.lsb-member-table td:nth-child(2) small {
+    display: block;
+}
+.lsb-member-table td:first-child span,
+.lsb-member-table td:first-child small,
+.lsb-member-table td:nth-child(2) small {
+    margin-top: 4px;
+    color: #64748b;
+}
+.lsb-member-status {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    padding: 4px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+}
+.lsb-member-status--active { background: #dcfce7; color: #166534; }
+.lsb-member-status--manual { background: #dbeafe; color: #1e40af; }
+.lsb-member-status--expired { background: #fee2e2; color: #991b1b; }
+.lsb-member-status--none { background: #f1f5f9; color: #475569; }
+.lsb-member-actions {
+    display: grid;
+    grid-template-columns: minmax(160px, 1.1fr) minmax(140px, .8fr) minmax(160px, 1fr);
+    gap: 10px;
+    align-items: end;
+}
+.lsb-member-actions label {
+    margin: 0;
+}
+.lsb-member-actions label span {
+    font-size: 12px;
+    color: #475569;
+}
+.lsb-member-buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+@media (max-width: 960px) {
+    .lsb-admin-grid {
+        grid-template-columns: 1fr;
+    }
+    .lsb-admin-card--wide {
+        grid-column: span 1;
+    }
+    .lsb-package-row {
+        grid-template-columns: 1fr;
+    }
+    .lsb-card-heading,
+    .lsb-member-actions {
+        grid-template-columns: 1fr;
+    }
+    .lsb-card-heading {
+        display: grid;
+    }
+    .lsb-member-table,
+    .lsb-member-table thead,
+    .lsb-member-table tbody,
+    .lsb-member-table th,
+    .lsb-member-table td,
+    .lsb-member-table tr {
+        display: block;
+    }
+    .lsb-member-table thead {
+        display: none;
+    }
+    .lsb-member-table tr {
+        margin-bottom: 14px;
+        border: 1px solid #e5eaf3;
+        border-radius: 8px;
+        background: #fff;
+    }
+    .lsb-member-table td {
+        border-bottom: 1px solid #eef2f7;
+    }
+    .lsb-member-table td:last-child {
+        border-bottom: 0;
+    }
+    .lsb-member-buttons .button {
+        flex: 1 1 150px;
+        text-align: center;
+    }
+}

@@ -1,6 +1,12 @@
 <?php defined( 'ABSPATH' ) || exit; ?>
 <div class="wrap lsb-admin-wrap">
-    <h1><?php esc_html_e( 'Live Scoreboard — All Matches', 'live-scoreboard' ); ?></h1>
+    <h1><?php esc_html_e( 'Live Scoreboard - All Matches', 'live-scoreboard' ); ?></h1>
+
+    <p class="lsb-admin-actions">
+        <a class="button button-primary" href="<?php echo esc_url( admin_url( 'admin.php?page=lsb-membership' ) ); ?>">
+            <?php esc_html_e( 'Edit Subscriptions', 'live-scoreboard' ); ?>
+        </a>
+    </p>
 
     <table class="wp-list-table widefat fixed striped">
         <thead>

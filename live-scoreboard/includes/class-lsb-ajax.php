@@ -181,8 +181,8 @@ class LSB_Ajax {
     }
 
     private function require_cap() {
-        if ( ! is_user_logged_in() || ! current_user_can( 'lsb_manage' ) ) {
-            wp_send_json_error( array( 'message' => __( 'You must be logged in as a scorer.', 'live-scoreboard' ) ) );
+        if ( ! is_user_logged_in() || ! LSB_Membership::can_manage() ) {
+            wp_send_json_error( array( 'message' => LSB_Membership::access_required_message() ) );
         }
     }
 }

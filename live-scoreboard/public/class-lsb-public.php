@@ -5,8 +5,7 @@ class LSB_Public {
 
     public function __construct() {
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
-        // Grant scorer cap to any newly registered user
-        add_action( 'user_register', array( $this, 'assign_scorer_cap' ) );
+        add_action( 'user_register', array( $this, 'assign_match_manager_role' ), 30 );
     }
 
     public function enqueue() {
@@ -34,7 +33,7 @@ class LSB_Public {
             'nonce'        => wp_create_nonce( 'lsb_nonce' ),
             'pollInterval' => 3000,   // ms between polls
             'isLoggedIn'   => is_user_logged_in(),
-            'canManage'    => current_user_can( 'lsb_manage' ),
+            'canManage'    => LSB_Membership::can_manage(),
             'i18n'         => array(
                 'live'     => __( 'LIVE', 'live-scoreboard' ),
                 'upcoming' => __( 'Upcoming', 'live-scoreboard' ),
@@ -55,11 +54,13 @@ class LSB_Public {
         if ( $post && has_shortcode( $post->post_content, 'scoreboard_list' ) )   return true;
         if ( $post && has_shortcode( $post->post_content, 'live_scores' ) )      return true;
         if ( $post && has_shortcode( $post->post_content, 'scorer_dashboard' ) )  return true;
+        if ( $post && has_shortcode( $post->post_content, 'match_manager_subscription' ) ) return true;
         return false;
     }
 
-    public function assign_scorer_cap( $user_id ) {
-        $user = new WP_User( $user_id );
-        $user->add_cap( 'lsb_manage' );
+    public function assign_match_manager_role( $user_id ) {
+        if ( ! LSB_Membership::expires_timestamp( $user_id ) && ! LSB_Membership::has_manual_access( $user_id ) ) {
+            LSB_Membership::setup_new_user( $user_id );
+        }
     }
 }

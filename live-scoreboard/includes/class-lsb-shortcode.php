@@ -7,6 +7,7 @@ class LSB_Shortcode {
         add_shortcode( 'scoreboard',       array( $this, 'render_single' ) );
         add_shortcode( 'scoreboard_list',  array( $this, 'render_list' ) );
         add_shortcode( 'scorer_dashboard', array( $this, 'render_dashboard' ) );
+        add_shortcode( 'match_manager_subscription', array( $this, 'render_subscription' ) );
     }
 
     // [scoreboard id="123"]  or  [scoreboard slug="my-match"]
@@ -51,12 +52,58 @@ class LSB_Shortcode {
             exit;
         }
 
-        if ( ! current_user_can( 'lsb_manage' ) ) {
-            return '<p>' . esc_html__( 'Your account does not have scorer access.', 'live-scoreboard' ) . '</p>';
+        if ( ! LSB_Membership::can_manage() ) {
+            return '<div class="lsb-membership-alert"><strong>' . esc_html__( 'Subscription inactive', 'live-scoreboard' ) . '</strong><p>' . esc_html( LSB_Membership::access_required_message() ) . '</p></div>' . $this->render_subscription( array() );
         }
 
         ob_start();
         include LSB_DIR . 'templates/dashboard.php';
+        return ob_get_clean();
+    }
+
+    // [match_manager_subscription] — show the admin-defined plan and current member status
+    public function render_subscription( $atts ) {
+        $packages = LSB_Membership::active_packages();
+
+        ob_start();
+        ?>
+        <div class="lsb-subscription-card">
+            <h2><?php esc_html_e( 'Available Subscription Packages', 'live-scoreboard' ); ?></h2>
+            <p><?php esc_html_e( 'Choose a package and contact admin to activate subscription. Online payment is not connected yet.', 'live-scoreboard' ); ?></p>
+            <?php if ( $packages ) : ?>
+                <div class="lsb-package-cards">
+                    <?php foreach ( $packages as $package ) : ?>
+                        <div class="lsb-package-card">
+                            <strong><?php echo esc_html( $package['name'] ); ?></strong>
+                            <?php if ( $package['price_label'] ) : ?>
+                                <span class="lsb-subscription-price"><?php echo esc_html( $package['price_label'] ); ?></span>
+                            <?php endif; ?>
+                            <p><?php echo esc_html( $package['description'] ); ?></p>
+                            <small>
+                                <?php
+                                printf(
+                                    /* translators: %d: number of days */
+                                    esc_html__( '%d days access', 'live-scoreboard' ),
+                                    absint( $package['days'] )
+                                );
+                                ?>
+                            </small>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else : ?>
+                <p><?php esc_html_e( 'No active subscription packages are available. Please contact the admin.', 'live-scoreboard' ); ?></p>
+            <?php endif; ?>
+            <?php if ( is_user_logged_in() ) : ?>
+                <div class="lsb-membership-status">
+                    <strong><?php esc_html_e( 'Your status:', 'live-scoreboard' ); ?></strong>
+                    <span><?php echo esc_html( LSB_Membership::status_label( get_current_user_id() ) ); ?></span>
+                </div>
+            <?php else : ?>
+                <a class="button button-primary" href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>"><?php esc_html_e( 'Create account or log in', 'live-scoreboard' ); ?></a>
+            <?php endif; ?>
+        </div>
+        <?php
         return ob_get_clean();
     }
 }

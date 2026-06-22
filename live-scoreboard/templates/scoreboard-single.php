@@ -9,7 +9,7 @@ get_header();
 
         <?php lsb_render_board( $match ); ?>
 
-        <?php if ( is_user_logged_in() && current_user_can( 'lsb_manage' ) && LSB_Match::can_edit( $match->id, get_current_user_id() ) ) : ?>
+        <?php if ( is_user_logged_in() && LSB_Membership::can_manage() && LSB_Match::can_edit( $match->id, get_current_user_id() ) ) : ?>
             <?php include LSB_DIR . 'templates/update-panel.php'; ?>
         <?php endif; ?>
 

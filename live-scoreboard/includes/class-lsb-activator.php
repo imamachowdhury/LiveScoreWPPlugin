@@ -6,8 +6,7 @@ class LSB_Activator {
     public static function activate() {
         LSB_DB::create_tables();
         update_option( 'lsb_version', LSB_VERSION );
-        // Give all existing users the scorer capability
-        self::add_scorer_role();
+        self::add_roles();
         flush_rewrite_rules();
     }
 
@@ -15,7 +14,9 @@ class LSB_Activator {
         flush_rewrite_rules();
     }
 
-    private static function add_scorer_role() {
+    private static function add_roles() {
+        LSB_Membership::add_role_and_caps();
+
         add_role(
             'scorer',
             __( 'Scorer', 'live-scoreboard' ),
@@ -24,7 +25,6 @@ class LSB_Activator {
                 'lsb_manage'    => true,
             )
         );
-        // Also grant admins and editors the capability
         foreach ( array( 'administrator', 'editor' ) as $role_name ) {
             $role = get_role( $role_name );
             if ( $role ) {

@@ -34,19 +34,10 @@ class LSB_Rewrite {
         $match_slug   = get_query_var( 'lsb_match' );
 
         if ( $overlay_slug ) {
-            if ( ! is_user_logged_in() ) {
-                wp_safe_redirect( wp_login_url( home_url( '/scoreboard/overlay/' . $overlay_slug ) ) );
-                exit;
-            }
-
             $match = LSB_Match::get( $overlay_slug );
             if ( ! $match ) {
                 status_header( 404 );
                 exit( 'Match not found.' );
-            }
-
-            if ( ! LSB_Match::can_edit( $match->id, get_current_user_id() ) ) {
-                wp_die( esc_html__( 'You do not have permission to view this overlay.', 'live-scoreboard' ), 403 );
             }
 
             set_query_var( 'lsb_match_data', $match );

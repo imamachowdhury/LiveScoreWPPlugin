@@ -4,6 +4,11 @@ $user_id = get_current_user_id();
 $matches = LSB_Match::get_for_user( $user_id );
 ?>
 <div class="lsb-dashboard">
+    <div class="lsb-membership-status">
+        <strong><?php esc_html_e( 'Subscription:', 'live-scoreboard' ); ?></strong>
+        <span><?php echo esc_html( LSB_Membership::status_label( $user_id ) ); ?></span>
+    </div>
+
     <div class="lsb-dashboard-header">
         <div>
             <h2><?php esc_html_e( 'My Matches', 'live-scoreboard' ); ?></h2>
